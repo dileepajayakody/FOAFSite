@@ -80,7 +80,7 @@ rdfs:seeAlso > fise:redirects
 owl:sameAs > fise:redirects
 </pre><br/>
 
-### Running the Indexing Tool and Deploying the FOAF dataset to Stanbol
+###Running the Indexing Tool and Deploying the FOAF dataset to Stanbol
 Now all the necessary configurations to index and filter a FOAF dataset is done. So you can run the indexing tool using below command:<br/>
 <code>java -Xmx1024m -jar  org.apache.stanbol.entityhub.indexing.genericrdf-0.12.0-SNAPSHOT.jar index</code> <br/>
 
@@ -91,10 +91,10 @@ Copy the generated <code>foaf-site.solrindex.zip</code> to ${stanbol-server}/dat
 Launch Stanbol server using full-launcher and access the foaf-site at : localhost:8080/entityhub/site/foaf-site
 The next step is to create an Enhancement Engine in Stanbol utilizing above created FOAF Site.
 
-### Configuring an Enhancement Engine and a Enhancement Chain using the FOAF Site
+###Configuring an Enhancement Engine and a Enhancement Chain using the FOAF Site
 After successfully deploying the foaf-site, I configured an enhancement chain to perform content enhancements using above ceated foaf-site. Most of these configurations can be done via the osgi console configuration manager of Apache stanbol accessible at : http://localhost:8080/system/console/configMgr <br/>
 
-Following are the enhancement engine configurations required to create a FOAF site linking engine.
+Following are the enhancement engine configurations required to create a FOAF site linking engine. <br/>
 
 * Configure a new entityhub-linking-engine [6] with below configuration changes: <br/>
 <pre>
@@ -123,4 +123,3 @@ If the configurations are done correctly <code>Timb Berness Lee</code> and <code
 [5] https://svn.apache.org/repos/asf/stanbol/trunk/entityhub/indexing/freebase <br/>
 [6] https://stanbol.apache.org/docs/trunk/components/enhancer/engines/entityhublinking <br/>
 [7] http://stanbol.apache.org/docs/trunk/components/enhancer/chains/weightedchain.html
-
