@@ -24,10 +24,10 @@ Creating a ReferenceSite with FOAF dataset
 For this purpose I used the generic-rdf indexing tool in Stanbol project. Some of the tasks such as FOAF filtering required additional configuration files to be copied to the tool from other sources. Below guide will explain how to develop a FOAF datasite as a custom vocabulary integration in Stanbol.
 
 ###Building the indexing tool 
-The generic-rdf indexing tool can be found in the Stanbol trunk at [4]. Build it from source using <code>mvn clean install</code>. This will create the org.apache.stanbol.entityhub.indexing.genericrdf-0.12.0-SNAPSHOT.jar file in the target. Then intialize the tool with the below command : <br/>
+The generic-rdf indexing tool can be found in the Stanbol trunk at [4]. Build it from source using <code>mvn clean install</code>. This will create the <code>org.apache.stanbol.entityhub.indexing.genericrdf-0.12.0-SNAPSHOT.jar</code> file in the target. Then intialize the tool with the below command : <br/>
  
-<code>java -jar org.apache.stanbol.entityhub.indexing.genericrdf-0.12.0-SNAPSHOT.jar init</code>
-Above initialization command will create the indexing tool directories for various purposes in the indexing process. The main directories are as below
+<code>java -jar org.apache.stanbol.entityhub.indexing.genericrdf-0.12.0-SNAPSHOT.jar init</code> <br/>
+Above initialization command will create the indexing tool directories for various purposes in the indexing process. The main directories are as below:
 <pre>
 /indexing
 	/config {the main configuration directory}
@@ -43,7 +43,7 @@ Below steps will describe each configuration done to achieve FOAF filtering on t
 
 
 ###Configuring the tool to filter foaf entities 
-indexing/config is the main configuration directory of the tool and the main configuration file is <code>indexing.properties</code> <br/>
+indexing/config is the main configuration directory of the tool and the main configuration file is <code>indexing.properties</code>. <br/>
 To give a unique name to the EntityHub site, set the 'name' value in indexing.properties to a suitable unique Site name (eg: foaf-site ) <br/> 
 The FOAF filtering configurations require to edit the EntityDataIterable field to support FOAF entity iterations as below. <br/>
 <code>entityDataIterable=org.apache.stanbol.entityhub.indexing.source.jenatdb.RdfIndexingSource,config:indexingsource,bnode:true</code><br/>(Please note the additional bnode:true parameter above is activated to process blank nodes in the dataset)<br/>
@@ -54,7 +54,7 @@ Copy the 2 files into indexing/config and add the below entry to propertyfilter.
 <code>foaf:*</code><br/>
 Above entry instructs the tool to filter entities from the datasource which defines some foaf property in foaf namespace. <br/>
 
-To index only <code>foaf:Person</code> and <code>foaf:Organization</code> type entities, activate 'values' in <code>entityTypes.properties</code> file. <br/>
+To index only <code>foaf:Person</code> and <code>foaf:Organization</code> type entities, activate 'values' in <code>entityTypes.properties</code> file as below: <br/>
 <code>values=foaf:Person;foaf:Organization</code> <br/>
 Check above entity filtering in entityTypes.properties is enabled in indexing.properties as a entityProcessor by searching for below entry. <br/>
 <code>entityProcessor=org.apache.stanbol.entityhub.indexing.core.processor.FieldValueFilter,config:entityTypes;</code><br/>
@@ -67,11 +67,11 @@ foaf:nick > rdfs:label
 foaf:givenName > rdfs:label
 foaf:familyName > rdfs:label
 foaf:firstName > rdfs:label	
-</pre> <br/>
+</pre>
 
-In the enhancement phase, to traverse between entities, the Stanbol engine uses the redirect field. In FOAF there are 2 main fields to link similar/related entities. They are <code>rdfs:seeAlso</code> and <code>owl:sameAs</code>. To use both of them as redirect fields in Stanbol engines, they have to be converged as Stanbol only allows 1 redirect field. Therefore I will merge both these fields into Stanbol internally used <code>fise:redirects</code> and used as the single redirect field in the linking engine configuration explained later.
+In the enhancement phase, to traverse between entities, the Stanbol engine uses the redirect field. In FOAF there are 2 main fields to link similar/related entities. They are <code>rdfs:seeAlso</code> and <code>owl:sameAs</code>. To use both of them as redirect fields in Stanbol engines, they have to be converged as Stanbol only allows 1 redirect field. Therefore I will merge both these fields into Stanbol internally used <code>fise:redirects</code> and used as the single redirect field in the linking engine configuration explained later.<br/>
 
-Following are the extra configurations to be added to mappings.txt in the indexing tool;<br/>
+Following are the extra configurations to be added to mappings.txt in the indexing tool:<br/>
 <pre>
 rdfs:seeAlso | d=entityhub:ref
 owl:sameAs | d=entityhub:ref
@@ -80,6 +80,7 @@ rdfs:seeAlso > fise:redirects
 owl:sameAs > fise:redirects
 </pre><br/>
 
+### Running the Indexing Tool and Deploying the FOAF dataset to Stanbol
 Now all the necessary configurations to index and filter a FOAF dataset is done. So you can run the indexing tool using below command:<br/>
 <code>java -Xmx1024m -jar  org.apache.stanbol.entityhub.indexing.genericrdf-0.12.0-SNAPSHOT.jar index</code> <br/>
 
@@ -90,12 +91,12 @@ Copy the generated <code>foaf-site.solrindex.zip</code> to ${stanbol-server}/dat
 Launch Stanbol server using full-launcher and access the foaf-site at : localhost:8080/entityhub/site/foaf-site
 The next step is to create an Enhancement Engine in Stanbol utilizing above created FOAF Site.
 
-###Configuring an Enhancement Engine and a Enhancement Chain using the FOAF Site
+### Configuring an Enhancement Engine and a Enhancement Chain using the FOAF Site
 After successfully deploying the foaf-site, I configured an enhancement chain to perform content enhancements using above ceated foaf-site. Most of these configurations can be done via the osgi console configuration manager of Apache stanbol accessible at : http://localhost:8080/system/console/configMgr <br/>
 
 Following are the enhancement engine configurations required to create a FOAF site linking engine.
 
-*Configure a new entityhub-linking-engine [6] with below configuration changes: <br/>
+* Configure a new entityhub-linking-engine [6] with below configuration changes: <br/>
 <pre>
 Name : foaf-site-linking
 Referenced site : foaf-site
@@ -103,12 +104,11 @@ Redirect field : fise:redirects
 Case sensitivity : disabled
 </pre>
 
-*Configure a weighted enhancement chain [7] using above created foaf-site-linking engine by doing below configuration changes. In the enhancement-chain I have added several available engines to perform language detection and natural language processing prior to foaf-linking: <br/>
+* Configure a weighted enhancement chain [7] using above created foaf-site-linking engine by doing below configuration changes. In the enhancement-chain I have added several available engines to perform language detection and natural language processing prior to foaf-linking: <br/>
 <pre>
 Name : foaf-site-chain
 Engines : langdetect, opennlp-sentence, opennlp-token, opennlp-pos, foaf-site-linking
 </pre>
-<br/>
 
 Now you can invoke the new foaf-site-chain by going to : http://localhost:8080/enhancer/chain/foaf-site-chain
 and giving a test content like : "Tim Bernes Lee is the inventor of World Wide Web"
