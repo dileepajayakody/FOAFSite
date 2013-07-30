@@ -81,7 +81,10 @@ owl:sameAs > fise:redirects
 </pre>
 
 <h3>Running the Indexing Tool and Deploying the FOAF dataset to Stanbol</h3>
-Now all the necessary configurations to index and filter a FOAF dataset is done. So you can run the indexing tool using below command:<br/>
+Now all the necessary configurations to index and filter a FOAF dataset is done. You need to include the FOAF dataset files to index in indexing/resources/rdfdata.
+For this I have used the datahub/data-4.nq [6] and timbl/data-6.nq [7] datasets available at the btc2012 project site. Download the data files from given links and copy them to indexing/resources/rdfdata directory prior to indexing.
+<br/>
+Now you can run the indexing tool using below command:<br/>
 <code>java -Xmx1024m -jar  org.apache.stanbol.entityhub.indexing.genericrdf-0.12.0-SNAPSHOT.jar index</code> <br/>
 
 Above will execute the entity extraction and indexing process and create 2 files in the indexing/dist directory.
@@ -96,7 +99,7 @@ After successfully deploying the foaf-site, I configured an enhancement chain to
 
 Following are the enhancement engine configurations required to create a FOAF site linking engine. <br/>
 
-* Configure a new entityhub-linking-engine [6] with below configuration changes: <br/>
+* Configure a new entityhub-linking-engine [8] with below configuration changes: <br/>
 <pre>
 Name : foaf-site-linking
 Referenced site : foaf-site
@@ -104,7 +107,7 @@ Redirect field : fise:redirects
 Case sensitivity : disabled
 </pre>
 <br/>
-* Configure a weighted enhancement chain [7] using above created foaf-site-linking engine by doing below configuration changes. In the enhancement-chain I have added several available engines to perform language detection and natural language processing prior to foaf-linking: <br/>
+* Configure a weighted enhancement chain [9] using above created foaf-site-linking engine by doing below configuration changes. In the enhancement-chain I have added several available engines to perform language detection and natural language processing prior to foaf-linking: <br/>
 <pre>
 Name : foaf-site-chain
 Engines : langdetect, opennlp-sentence, opennlp-token, opennlp-pos, foaf-site-linking
@@ -121,5 +124,7 @@ If the configurations are done correctly <code>Tim Berness Lee</code> and <code>
 [3] http://webdatacommons.org/ <br/>
 [4] https://svn.apache.org/repos/asf/stanbol/trunk/entityhub/indexing/genericrdf<br/>
 [5] https://svn.apache.org/repos/asf/stanbol/trunk/entityhub/indexing/freebase <br/>
-[6] https://stanbol.apache.org/docs/trunk/components/enhancer/engines/entityhublinking <br/>
-[7] http://stanbol.apache.org/docs/trunk/components/enhancer/chains/weightedchain.html
+[6] http://km.aifb.kit.edu/projects/btc-2012/datahub/data-4.nq.gz <br/>
+[7] http://km.aifb.kit.edu/projects/btc-2012/timbl/data-6.nq.gz <br/>
+[8] https://stanbol.apache.org/docs/trunk/components/enhancer/engines/entityhublinking <br/>
+[9] http://stanbol.apache.org/docs/trunk/components/enhancer/chains/weightedchain.html
