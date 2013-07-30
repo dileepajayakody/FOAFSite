@@ -113,7 +113,7 @@ Engines : langdetect, opennlp-sentence, opennlp-token, opennlp-pos, foaf-site-li
 Now you can invoke the new foaf-site-chain by going to : http://localhost:8080/enhancer/chain/foaf-site-chain
 and giving a test content like : "Tim Bernes Lee is the inventor of World Wide Web"
 
-If the configurations are done correctly <code>Timb Berness Lee</code> and <code>World Wide Web</code> should be identified as entities from the foaf-site dataset. Please refer the screen-shot image attached here with the demo results. This foaf-site-linking engine will be used as the base of the foaf-disambiguation engine to be created in the 2nd phase of the GSOC project. <br/>
+If the configurations are done correctly <code>Tim Berness Lee</code> and <code>World Wide Web</code> should be identified as entities from the foaf-site dataset. Please refer the screen-shot image attached here with the demo results. This foaf-site-linking engine will be used as the base of the foaf-disambiguation engine to be created in the 2nd phase of the GSOC project. <br/>
 
 
 [1] http://www.w3.org/wiki/FoafSites <br/>
