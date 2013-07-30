@@ -78,9 +78,9 @@ owl:sameAs | d=entityhub:ref
 
 rdfs:seeAlso > fise:redirects
 owl:sameAs > fise:redirects
-</pre><br/>
+</pre>
 
-###Running the Indexing Tool and Deploying the FOAF dataset to Stanbol
+<h3>Running the Indexing Tool and Deploying the FOAF dataset to Stanbol</h3>
 Now all the necessary configurations to index and filter a FOAF dataset is done. So you can run the indexing tool using below command:<br/>
 <code>java -Xmx1024m -jar  org.apache.stanbol.entityhub.indexing.genericrdf-0.12.0-SNAPSHOT.jar index</code> <br/>
 
@@ -89,9 +89,9 @@ Copy the generated <code>org.apache.stanbol.data.site.foaf-site-1.0.0.jar</code>
 Copy the generated <code>foaf-site.solrindex.zip</code> to ${stanbol-server}/datafiles directory. <br/>
 
 Launch Stanbol server using full-launcher and access the foaf-site at : localhost:8080/entityhub/site/foaf-site
-The next step is to create an Enhancement Engine in Stanbol utilizing above created FOAF Site.
+The next step is to create an Enhancement Engine in Stanbol utilizing above created FOAF Site.<br/>
 
-###Configuring an Enhancement Engine and a Enhancement Chain using the FOAF Site
+<h3>Configuring an Enhancement Engine and a Enhancement Chain using the FOAF Site</h3>
 After successfully deploying the foaf-site, I configured an enhancement chain to perform content enhancements using above ceated foaf-site. Most of these configurations can be done via the osgi console configuration manager of Apache stanbol accessible at : http://localhost:8080/system/console/configMgr <br/>
 
 Following are the enhancement engine configurations required to create a FOAF site linking engine. <br/>
@@ -103,7 +103,7 @@ Referenced site : foaf-site
 Redirect field : fise:redirects
 Case sensitivity : disabled
 </pre>
-
+<br/>
 * Configure a weighted enhancement chain [7] using above created foaf-site-linking engine by doing below configuration changes. In the enhancement-chain I have added several available engines to perform language detection and natural language processing prior to foaf-linking: <br/>
 <pre>
 Name : foaf-site-chain
