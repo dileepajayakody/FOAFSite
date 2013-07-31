@@ -117,7 +117,7 @@ Now you can invoke the new foaf-site-chain by going to : http://localhost:8080/e
 and giving a test content like : "Tim Bernes Lee is the inventor of World Wide Web". <br/>
 
 You can even try it using a REST client like curl without using the Stanbol web-interface as below : <br/>
-<code>curl -X POST -H "Accept: text/turtle" -H "Content-type: text/plain" --data "Daniel Alexander Smith is the CSO of Operational Computers in London" http://localhost:8080/enhancer/chain/foaf-site-chain</code>
+<code>curl -X POST -H "Accept: text/turtle" -H "Content-type: text/plain" --data "Tim Bernes Lee is the inventor of World Wide Web" http://localhost:8080/enhancer/chain/foaf-site-chain</code>
 
 If the configurations are done correctly <code>Tim Berness Lee</code> and <code>World Wide Web</code> should be identified as entities from the foaf-site dataset. Please refer the screen-shot image attached here with the demo results. This foaf-site-linking engine will be used as the base of the foaf-disambiguation engine to be created in the 2nd phase of the GSOC project. <br/>
 
