@@ -94,7 +94,7 @@ Copy the generated <code>foaf-site.solrindex.zip</code> to ${stanbol-server}/dat
 Launch Stanbol server using full-launcher and access the foaf-site at : localhost:8080/entityhub/site/foaf-site
 The next step is to create an Enhancement Engine in Stanbol utilizing above created FOAF Site.<br/>
 
-<h3>Configuring an Enhancement Engine and a Enhancement Chain using the FOAF Site</h3>
+<h2>Configuring an Enhancement Engine & an Enhancement Chain using the FOAF Site</h2>
 After successfully deploying the foaf-site, I configured an enhancement chain to perform content enhancements using above ceated foaf-site. Most of these configurations can be done via the osgi console configuration manager of Apache stanbol accessible at : http://localhost:8080/system/console/configMgr <br/>
 
 Following are the enhancement engine configurations required to create a FOAF site linking engine. <br/>
